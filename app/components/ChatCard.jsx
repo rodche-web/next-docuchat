@@ -32,12 +32,13 @@ const ChatCard = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ messages: payload }),
+          body: JSON.stringify({ message: inputText }),
         });
 
         if (botResponse.ok) {
           const data = await botResponse.json();
-          setMessages(prev => ([...prev, data.message]));
+          const messageObject = {role: 'assistant', content: data.message}
+          setMessages(prev => ([...prev, messageObject]));
         } else {
           console.error('Failed to fetch');
         }
@@ -57,14 +58,12 @@ const ChatCard = () => {
   return (
     <Card>
       <CardContent>
-        {/* Chatbox */}
         <div ref={chatboxRef} style={{ height: '60vh', overflow: 'auto' }}>
           {messages.map((item, index) => (
             <Message key={index} message={item.content} username={item.role === 'assistant' ? 'Assistant' : 'User'} isCurrentUser={item.role === 'user'} />
           ))}
         </div>
 
-        {/* Text area and submit button */}
         <form onSubmit={handleFormSubmit}>
           <TextField
             label="Type a message"

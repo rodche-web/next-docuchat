@@ -1,13 +1,11 @@
-// import { config } from 'dotenv'
-// config()
 import { FaissStore } from "langchain/vectorstores/faiss";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
-export async function splitTextDocument (path) {
+export async function splitTextDocument () {
     try {
-        const loader = new TextLoader(path);
+        const loader = new TextLoader('scrimba.txt');
         const text = await loader.load();
     
         const splitter = new RecursiveCharacterTextSplitter({
@@ -36,8 +34,3 @@ export async function loadToVectorStore (docs) {
     }
 }
 
-// Main Program
-// const document = await splitTextDocument('artwar.txt')
-// const store = await loadToVectorStore(document)
-// const result = await store.similaritySearch('What are the plans?')
-// console.log(result)
