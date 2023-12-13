@@ -12,10 +12,12 @@ const llm = new ChatOpenAI()
 let convHistory = []
 
 export async function POST(request) {
-    const {message} = await request.json()
+    const formData = await request.formData()
+    const message = formData.get('message')
+    const file = formData.get('document')
 
     // Vector Store
-    const document = await splitTextDocument()
+    const document = await splitTextDocument(file)
     const store = await loadToVectorStore(document)
     const retriever = await store.asRetriever()
 
@@ -25,10 +27,10 @@ export async function POST(request) {
     question:{question}
     standalone question:`
 
-    const answerPromptTemplate = `You are a helpful and enthusiastic support bot who can answer a given question about Scrimba 
+    const answerPromptTemplate = `You are a helpful and enthusiastic knowledge bot who can answer a given question
     based on the context and conversation history provided. 
     Try to find the answer in the context and conversation history. 
-    If you really don't know the answer, say "I'm sorry, I don't know the answer to that." And direct the questioner to email help@scrimba.com. 
+    If you really don't know the answer, say "I'm sorry, I don't know the answer to that.". 
     Don't try to make up an answer. Always speak as if you were chatting to a friend.
     context: {context}
     conversation history: {conv_history}

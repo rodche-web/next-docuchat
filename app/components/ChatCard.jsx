@@ -1,13 +1,16 @@
 'use client'
 import { useRef, useState, useEffect } from 'react';
-import { Card, CardContent, TextField, Button } from '@mui/material';
+import { Card, CardContent, TextField, Button, IconButton, Typography } from '@mui/material';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import Message from './Message';
 
 const ChatCard = () => {
   const [messages, setMessages] = useState([])
   const [inputText, setInputText] = useState('')
+  const [doc, setDoc] = useState()
 
   const chatboxRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const handleInputChange = (e) => {
     setInputText(e.target.value)
@@ -25,14 +28,14 @@ const ChatCard = () => {
       const payload = [...messages, newMessage]
       setMessages(payload);
       setInputText('');
+      const formData = new FormData()
+      formData.append('message', inputText)
+      formData.append('document', doc)
 
       try {
         const botResponse = await fetch('/api/chat', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message: inputText }),
+          body: formData
         });
 
         if (botResponse.ok) {
@@ -47,6 +50,14 @@ const ChatCard = () => {
       }
     }
   };
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current.click();
+  }
+
+  const handleFileUpload = e => {
+    setDoc(e.target.files[0])
+  }
 
   // Note: add this so chat messages start at the bottom
   useEffect(() => {
@@ -75,9 +86,21 @@ const ChatCard = () => {
             variant="outlined"
             margin="normal"
           />
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="contained" color="primary" disabled={!doc}>
             Send
           </Button>
+          <IconButton color="primary" onClick={handleFileButtonClick}>
+            <AttachFileIcon />
+          </IconButton>
+          <input
+            type="file"
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+          />
+          <Typography variant="h6">
+            {doc ? doc.name : ''}
+          </Typography>
         </form>
       </CardContent>
     </Card>

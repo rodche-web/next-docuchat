@@ -3,9 +3,10 @@ import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
-export async function splitTextDocument () {
+export async function splitTextDocument (file) {
     try {
-        const loader = new TextLoader('scrimba.txt');
+        const loadedData = file
+        const loader = new TextLoader(loadedData);
         const text = await loader.load();
     
         const splitter = new RecursiveCharacterTextSplitter({
