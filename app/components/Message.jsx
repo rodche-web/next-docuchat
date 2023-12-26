@@ -1,5 +1,5 @@
 'use client'
-import { Avatar, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const Message = ({ username, message, isCurrentUser }) => {
   const dialogColor = isCurrentUser ? '#e2f3ff' : '#f0f0f0';
@@ -12,7 +12,6 @@ const Message = ({ username, message, isCurrentUser }) => {
         marginBottom: '10px',
       }}
     >
-      <Avatar alt={username} src="/path/to/profile-picture.png" />
       <div style={{ marginLeft: '10px' }}>
         <Box
           component="div"
