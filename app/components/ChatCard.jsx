@@ -67,7 +67,7 @@ const ChatCard = () => {
   }, [messages]);
 
   return (
-    <Card>
+    <Card style={{width: '50%', margin: '20px auto'}}>
       <CardContent>
         <div ref={chatboxRef} style={{ height: '60vh', overflow: 'auto' }}>
           {messages.map((item, index) => (
@@ -86,7 +86,7 @@ const ChatCard = () => {
             variant="outlined"
             margin="normal"
           />
-          <Button type="submit" variant="contained" color="primary" disabled={!doc}>
+          <Button type="submit" variant="contained" color="primary" disabled={!doc && !inputText}>
             Send
           </Button>
           <IconButton color="primary" onClick={handleFileButtonClick}>

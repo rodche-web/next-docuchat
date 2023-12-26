@@ -5,8 +5,7 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
 export async function splitTextDocument (file) {
     try {
-        const loadedData = file
-        const loader = new TextLoader(loadedData);
+        const loader = new TextLoader(file);
         const text = await loader.load();
     
         const splitter = new RecursiveCharacterTextSplitter({
