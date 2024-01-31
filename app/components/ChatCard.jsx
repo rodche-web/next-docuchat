@@ -3,10 +3,12 @@ import { useRef, useState, useEffect } from 'react';
 import { Card, CardContent, TextField, Button, IconButton, Typography } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import Message from './Message';
+import DialogBox from './DialogBox';
 
 const ChatCard = () => {
   const [messages, setMessages] = useState([])
   const [inputText, setInputText] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [doc, setDoc] = useState()
 
   const chatboxRef = useRef(null);
@@ -38,15 +40,16 @@ const ChatCard = () => {
           body: formData
         });
 
-        if (botResponse.ok) {
-          const data = await botResponse.json();
+        const data = await botResponse.json()
+
+        if (data.success) {
           const messageObject = {role: 'assistant', content: data.message}
           setMessages(prev => ([...prev, messageObject]));
         } else {
-          console.error('Failed to fetch');
+          setErrorMessage(botResponse.message || 'Failed to fetch');
         }
       } catch (error) {
-        console.error('Error:', error);
+        setErrorMessage(error.message);
       }
     }
   };
@@ -103,6 +106,7 @@ const ChatCard = () => {
           </Typography>
         </form>
       </CardContent>
+      <DialogBox isDialogOpen={!!errorMessage} setIsDialogOpen={() => setErrorMessage('')} message={errorMessage} />
     </Card>
   );
 };
