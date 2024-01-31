@@ -2,6 +2,8 @@
 
 A Next.js application that lets users chat with documents.
 
+![docuchat](https://github.com/rodche-web/next-docuchat/assets/54510680/ce617a5a-cdff-44e1-af9c-4c74cae19243)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
