@@ -1,6 +1,6 @@
 # DocuChat
 
-A Next.js application that lets users ask quention about the contents of documents. It supports text and PDF files.
+A Next.js application that lets users ask questions about the contents of documents. It supports text and PDF files.
 
 ![docuchat](https://github.com/rodche-web/next-docuchat/assets/54510680/ce617a5a-cdff-44e1-af9c-4c74cae19243)
 
