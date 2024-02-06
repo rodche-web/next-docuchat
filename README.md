@@ -1,6 +1,6 @@
 # DocuChat
 
-A Next.js application that lets users chat with documents.
+A Next.js application that lets users ask questions about the contents of documents. It supports text and PDF files.
 
 ![docuchat](https://github.com/rodche-web/next-docuchat/assets/54510680/ce617a5a-cdff-44e1-af9c-4c74cae19243)
 
@@ -8,7 +8,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+Create a .env file and add your OpenAI API key as OPENAI_API_KEY
+
+Run the development server:
 
 ```bash
 npm run dev
